@@ -1,0 +1,68 @@
+
+# Operating system files
+
+.DS_Store
+Thumbs.db
+
+# Editor files
+
+.vscode/
+.idea/
+
+# Logs and temporary files
+
+*.log
+*.tmp
+*.temp
+
+# Python cache
+
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Jupyter
+
+.ipynb_checkpoints/
+
+# Environment files
+
+.env
+.env.*
+!.env.example
+
+# Build outputs
+
+build/
+dist/
+out/
+output/
+
+# Node / package caches
+
+node_modules/
+.npm/
+.pnpm-store/
+
+# Codex / runtime generated project memories may contain private project details.
+# Keep public examples under examples/ instead.
+memories/
+
+# Local archives
+
+*.zip
+*.tar
+*.tar.gz
+
+# Secrets and credentials
+
+*.pem
+*.key
+*.crt
+credentials.json
+token.json
+
+# Keep generated private memory examples out of the public skill repo by default.
+examples/generated-memory/
