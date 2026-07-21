@@ -55,6 +55,7 @@ ai-engineering-workflow/
 ├── README.md
 ├── AGENTS.md
 ├── LICENSE
+├── CHANGELOG.md
 ├── .gitignore
 ├── .gitattributes
 ├── examples/
@@ -169,8 +170,9 @@ The minimum test should confirm that Codex can:
 4. Run `issue-breakdown` and produce atomic tasks.
 5. Run `issue-execute` for only one task at a time.
 6. Run verification or clearly explain why verification cannot be run.
-7. Update status documents.
-8. Run `issue-close` and produce a final close report.
+7. Run `issue-update` after a controlled requirement or input change and synchronize affected documents.
+8. Update status documents.
+9. Run `issue-close` and produce a final close report.
 
 Do not publish the project until the local test is successful.
 

@@ -9,7 +9,7 @@
 
 ## Current Status
 
-- **Overall Status**: Open
+- **Overall Status**: open
 - **Current Stage**: {issue-create / issue-breakdown / issue-execute / issue-update / issue-status / issue-close}
 - **Current Task**: {task-id or none}
 - **Last Updated**: {updated-at}

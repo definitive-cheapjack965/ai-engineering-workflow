@@ -1,8 +1,12 @@
 # AI Engineering Workflow Skill
 
-`ai-engineering-workflow` is a Codex skill for managing complex AI-assisted coursework, coding tasks, data analysis projects, notebook projects, research prototypes, and multi-file development work.
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+![Version](https://img.shields.io/badge/version-v1.0.0-blue)
+![Type](https://img.shields.io/badge/type-Codex%20Skill-green)
 
-The skill helps Codex avoid jumping directly into implementation. Instead, it guides Codex through a structured engineering workflow:
+`ai-engineering-workflow` is a reusable Codex Skill for managing complex AI-assisted coursework, coding tasks, data analysis projects, notebook projects, research prototypes, and multi-file development work.
+
+Instead of jumping directly into implementation, the Skill guides Codex through a structured engineering workflow:
 
 1. understand the request;
 2. create issue context;
@@ -30,30 +34,28 @@ Common problems include:
 - inconsistent project status;
 - untracked changes.
 
-This skill solves these problems by introducing a lightweight engineering workflow for Codex.
+This Skill addresses those problems with a lightweight, issue-based engineering workflow.
 
 ---
 
 ## Best Use Cases
 
-Use this skill for:
+Use this Skill for:
 
 - coursework projects;
 - data analysis assignments;
-- Jupyter notebook projects;
+- Jupyter Notebook projects;
 - research report projects;
 - multi-file coding tasks;
 - project scaffolding;
 - debugging and incremental implementation;
 - tasks that require documentation and verification.
 
-Do not use this skill for very small one-step questions where a normal answer is enough.
+Do not use the full workflow for very small one-step questions unless it is explicitly requested.
 
 ---
 
 ## Workflow
-
-The main workflow is:
 
 ```text
 issue-create
@@ -69,9 +71,9 @@ issue-status
 issue-close
 ```
 
-### issue-create
+### `issue-create`
 
-Creates a structured issue folder and records the project context.
+Creates a structured issue folder and records project context.
 
 Initial outputs:
 
@@ -85,19 +87,19 @@ memories/YYYYMM/CHANGEID/
     └── task-breakdown.md
 ```
 
-### issue-breakdown
+### `issue-breakdown`
 
-Creates or formally completes `docs/task-breakdown.md` and breaks the issue into atomic, verifiable tasks.
+Creates or completes `docs/task-breakdown.md` and divides the issue into atomic, verifiable tasks.
 
-### issue-execute
+### `issue-execute`
 
-Executes one selected task or one clearly bounded next task. The skill should not silently complete unrelated work.
+Executes one selected task or one clearly bounded next task. The Skill should not silently complete unrelated work.
 
-### issue-update and issue-status
+### `issue-update` and `issue-status`
 
 Updates or checks task progress, blockers, changed files, and verification status.
 
-### issue-close
+### `issue-close`
 
 Creates a final close report with deliverables, verification results, limitations, and handoff notes.
 
@@ -114,11 +116,14 @@ memories/YYYYMM/CHANGEID/
     └── task-breakdown.md
 ```
 
+> [!NOTE]
+> `issue-create`, `issue-breakdown`, `issue-execute`, `issue-update`, `issue-status`, and `issue-close` are conceptual workflow modes used by the Skill. They are not operating-system shell commands and do not require separate command-line scripts.
+
 ---
 
-## Task Status Vocabulary
+## Status Vocabulary
 
-Use the following task status values consistently across generated workflow documents:
+### Task status
 
 | Status | Meaning |
 |---|---|
@@ -126,9 +131,22 @@ Use the following task status values consistently across generated workflow docu
 | `in_progress` | Currently being worked on. |
 | `blocked` | Cannot proceed because required information, files, or dependencies are missing. |
 | `done` | Completed and verified. |
-| `done_unverified` | Implementation or work is complete, but verification could not be fully run. |
+| `done_unverified` | Work is complete, but verification could not be fully run. |
 | `skipped` | Intentionally not done, with the reason recorded. |
-| `needs_review` | Requires user, reviewer, or human confirmation before it can be considered done. |
+| `needs_review` | Requires user, reviewer, or human confirmation. |
+
+### Issue closure status
+
+Use these values only for the overall issue:
+
+```text
+complete
+partially_complete
+blocked
+canceled
+```
+
+Do not use issue closure values for individual tasks.
 
 ---
 
@@ -138,6 +156,7 @@ Use the following task status values consistently across generated workflow docu
 ai-engineering-workflow/
 ├── AGENTS.md
 ├── README.md
+├── CHANGELOG.md
 ├── LICENSE
 ├── .gitignore
 ├── .gitattributes
@@ -170,41 +189,107 @@ ai-engineering-workflow/
 
 ## Installation
 
-For project-level use, copy the skill folder into the project repository:
+### Project-level installation
+
+Clone the repository:
+
+```bash
+git clone https://github.com/Jared13PG/ai-engineering-workflow.git
+```
+
+Copy the Skill folder from:
+
+```text
+ai-engineering-workflow/.agents/skills/ai-engineering-workflow/
+```
+
+into the target project:
+
+```text
+your-project/.agents/skills/ai-engineering-workflow/
+```
+
+Windows PowerShell example:
+
+```powershell
+Copy-Item `
+  -Recurse `
+  ".\ai-engineering-workflow\.agents\skills\ai-engineering-workflow" `
+  ".\your-project\.agents\skills\"
+```
+
+You may also download the repository as a ZIP file and copy only:
 
 ```text
 .agents/skills/ai-engineering-workflow/
 ```
 
-For global use, copy the same skill folder into the global or shared Codex skills directory supported by your local Codex setup. GitHub hosting makes the skill easy to download, but it does not automatically make the skill globally available on your machine.
+into the corresponding `.agents/skills/` directory of your project.
 
-Then use the skill in a project where Codex can read and write files.
+### Global installation
+
+Copy the Skill folder to the user-level Codex Skill directory:
+
+```text
+$HOME/.agents/skills/ai-engineering-workflow/
+```
+
+Linux or macOS example:
+
+```bash
+mkdir -p "$HOME/.agents/skills"
+cp -R .agents/skills/ai-engineering-workflow "$HOME/.agents/skills/"
+```
+
+Windows PowerShell example:
+
+```powershell
+New-Item -ItemType Directory -Force "$HOME\.agents\skills" | Out-Null
+Copy-Item -Recurse ".\.agents\skills\ai-engineering-workflow" "$HOME\.agents\skills\"
+```
+
+GitHub hosting makes the Skill easy to download, but it does not install the Skill automatically. Restart or reload the Codex session after installation when necessary.
 
 ---
 
 ## Example Usage
 
-Start with a complex assignment or project request:
+Start a complex assignment or project with:
 
 ```text
-Use ai-engineering-workflow to analyze this assignment, create an issue, break it into tasks, and implement it step by step.
+Use $ai-engineering-workflow.
+Start with issue-create. Analyze the project and create the initial workflow documents, but do not implement anything yet.
 ```
 
-A typical command flow is:
+Continue with task breakdown:
 
 ```text
-/issue-create [project or assignment request]
-/issue-breakdown
-/issue-execute next
-/issue-status
-/issue-close
+Continue with issue-breakdown and create atomic tasks with dependencies, acceptance criteria, and verification steps.
+```
+
+Execute one bounded task:
+
+```text
+Continue with issue-execute and complete Task 1.1 only.
+```
+
+Check progress:
+
+```text
+Use issue-status to summarize what is done, pending, blocked, and what should happen next.
+```
+
+Close the issue:
+
+```text
+Use issue-close to create the final handoff report.
 ```
 
 ---
 
 ## Quality Principles
 
-The skill follows these principles:
+The Skill follows these principles:
 
 - do not implement before understanding requirements;
 - do not invent missing requirements;
@@ -220,31 +305,33 @@ The skill follows these principles:
 
 ## What This Skill Does Not Do
 
-This skill does not:
+This Skill does not:
 
 - replace project-specific tests or manual review;
 - guarantee correctness when verification cannot be run;
 - automatically publish, commit, or release changes;
 - remove the need to check private data before pushing to GitHub;
-- make the skill globally available unless it is installed in the appropriate global skill directory.
+- become globally available unless it is installed in the appropriate global Skill directory.
 
 ---
 
 ## Validation Status
 
-A local workflow validation test has been recorded in:
+A local workflow validation test is recorded in:
 
 ```text
 examples/local-validation-result.md
 ```
 
-The recorded validation covers the expected workflow stages:
+The recorded runtime validation covers:
 
 - `issue-create`;
 - `issue-breakdown`;
 - `issue-execute`;
 - `issue-status`;
 - `issue-close`.
+
+A controlled `issue-update` regression scenario is included in `examples/homework-test-plan.md` and is marked pending a fresh Codex runtime test in the validation record.
 
 The example test plan is available at:
 
@@ -254,26 +341,25 @@ examples/homework-test-plan.md
 
 ---
 
-## Development Status
+## Project Status
 
-Current completed parts:
+The first public version, v1.0.0, has been released.
 
-- core skill file;
-- workflow references;
-- runtime document templates;
-- example homework test plan;
-- local validation result note;
-- repository guidance.
+Current completed components:
 
-Before publishing publicly, review the remaining release checks:
+- core Skill instructions;
+- workflow reference guides;
+- reusable issue and project templates;
+- local validation example;
+- installation and usage documentation;
+- privacy and verification safeguards.
 
-- confirm the public author name and email in Git history and `LICENSE`;
-- confirm no private coursework, datasets, credentials, or personal paths are included;
-- run one final local test after any edits;
-- decide whether to publish a clean source archive or a Git repository with preserved history.
+The Skill will continue to be improved through real project testing and user feedback.
+
+See [CHANGELOG.md](CHANGELOG.md) for release history.
 
 ---
 
 ## License
 
-This project is released under the MIT License.
+This project is released under the [MIT License](LICENSE).

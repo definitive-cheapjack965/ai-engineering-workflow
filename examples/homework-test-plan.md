@@ -155,27 +155,50 @@ Expected checks:
 
 ---
 
-### Step 4: Check Status
+### Step 4: Update After a Requirement Change
+
+Introduce a controlled change, for example:
 
 ```text
-/issue-status
+Use issue-update mode. Replace the original chart requirement with a bar chart and record that the input filename changed from sample_data.csv to revised_sample_data.csv. Update the workflow documents only; do not continue implementation.
+```
+
+Expected behavior:
+
+* Codex identifies the changed requirement and input file.
+* Codex updates affected assumptions, related files, acceptance criteria, dependencies, and status.
+* Codex does not perform unrelated implementation.
+* Previously completed work is marked for review or re-verification when the change invalidates it.
+
+Expected checks:
+
+* `issue.md`, `docs/task-breakdown.md`, and `status.md` reflect the new requirement;
+* outdated filenames or acceptance criteria are removed or clearly superseded;
+* the change is traceable and no unrelated task is completed.
+
+---
+
+### Step 5: Check Status
+
+```text
+Use issue-status mode.
 ```
 
 Expected behavior:
 
 * Codex summarizes current progress.
-* Codex lists completed, pending, and blocked tasks.
-* Codex reports verification status.
+* Codex lists completed, pending, blocked, and unverified tasks.
+* Codex reports verification status and the effect of the requirement change.
 
 Expected checks:
 
 * `status.md` is up to date;
 * blockers are clearly recorded if any exist;
-* unfinished tasks are not marked complete.
+* unfinished or invalidated tasks are not marked complete.
 
 ---
 
-### Step 5: Close Issue
+### Step 6: Close Issue
 
 ```text
 /issue-close
@@ -223,6 +246,8 @@ The skill passes this test if:
 * [ ] Codex fills the required workflow documents.
 * [ ] Codex breaks the work into atomic tasks.
 * [ ] Codex executes only one bounded task at a time.
+* [ ] Codex handles a controlled requirement change through `issue-update` before further implementation.
+* [ ] Codex updates affected issue, task, and status documents consistently.
 * [ ] Codex updates `status.md` after meaningful progress.
 * [ ] Codex records verification results honestly.
 * [ ] Codex creates `close-report.md` before closing.
@@ -241,6 +266,7 @@ The test should be considered failed or partially failed if Codex:
 * adds unrequested features;
 * modifies unrelated files;
 * hides missing input files;
+* continues implementation using outdated requirements instead of running `issue-update`;
 * fails to update `status.md`;
 * closes the issue without a final report.
 
